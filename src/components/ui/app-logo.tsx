@@ -14,6 +14,12 @@ const sizeMap = {
   hero: "h-28 w-28 rounded-3xl sm:h-32 sm:w-32",
 };
 
+const imageSizes = {
+  sm: "40px",
+  md: "56px",
+  hero: "(max-width: 640px) 112px, 128px",
+};
+
 function LogoImage({
   size = "md",
   className = "",
@@ -29,7 +35,7 @@ function LogoImage({
         fill
         priority={priority}
         className="object-cover"
-        sizes="(max-width: 640px) 112px, 128px"
+        sizes={imageSizes[size]}
       />
     </div>
   );

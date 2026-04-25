@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
+import {
+  DEFAULT_KEYWORDS,
+  DEFAULT_OG_IMAGE_PATH,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  getMetadataBase,
+} from "@/lib/seo";
 import "./globals.css";
 
 const bodyFont = Manrope({
@@ -15,12 +22,53 @@ const displayFont = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: getMetadataBase(),
   title: {
-    default: "QXG | Jeu de soirée 18+",
+    default: `${SITE_NAME} | Jeu Adulte 18+`,
     template: "%s | QXG",
   },
-  description:
-    "QXG est un jeu de soirée immersif 18+ avec une intensité progressive entre les modes Chill, Heat et Wild.",
+  description: SITE_DESCRIPTION,
+  keywords: DEFAULT_KEYWORDS,
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} | Jeu Adulte 18+`,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: "QXG - Jeu adulte action ou verite",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} | Jeu Adulte 18+`,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE_PATH],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -42,9 +90,7 @@ export default function RootLayout({
       lang="fr"
       className={`${bodyFont.variable} ${displayFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-background text-foreground">
-        {children}
-      </body>
+      <body className="min-h-full bg-background text-foreground">{children}</body>
     </html>
   );
 }
